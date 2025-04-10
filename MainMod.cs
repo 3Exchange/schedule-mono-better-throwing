@@ -1,13 +1,13 @@
 using MelonLoader;
 using HarmonyLib;
-// using ScheduleOne.Product;
-// using ScheduleOne.PlayerScripts;
+using ScheduleOne.PlayerScripts;
+using ScheduleOne.Trash;
 
-[assembly: MelonInfo(typeof(ExampleMod.ExampleMod), ExampleMod.BuildInfo.Name, ExampleMod.BuildInfo.Version, ExampleMod.BuildInfo.Author, ExampleMod.BuildInfo.DownloadLink)]
+[assembly: MelonInfo(typeof(BetterThrowing.BetterThrowing), BetterThrowing.BuildInfo.Name, BetterThrowing.BuildInfo.Version, BetterThrowing.BuildInfo.Author, BetterThrowing.BuildInfo.DownloadLink)]
 [assembly: MelonColor()]
 [assembly: MelonGame("TVGS", "Schedule I")]
 
-namespace ExampleMod
+namespace BetterThrowing
 {
     public static class BuildInfo
     {
@@ -18,16 +18,16 @@ namespace ExampleMod
         public const string DownloadLink = null;
     }
 
-    public class ExampleMod : MelonMod
+    public class BetterThrowing : MelonMod
     {
-        // [HarmonyPatch(typeof(Player), "ConsumeProduct")]
-        public static class Player_ConsumeProduct_Patch
+        [HarmonyPatch(typeof(TrashItem), "Awake")]
+        public static class Player_Pickup
         {
-            // public static bool Prefix(Player __instance, ProductItemInstance product)
-            // {
-            //     MelonLogger.Msg("Product is being consumed");
-            //     return true;
-            // }
+            public static bool Prefix(TrashItem __Instance, Player __instance)
+            {
+                MelonLogger.Msg("Product is being consumed");
+                return true;
+            }
         }
     }
 }
